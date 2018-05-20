@@ -16,6 +16,35 @@ class IndecisionApp extends Component{
     }
   }
 
+
+  //Life cycle
+  
+  componentDidMount(){
+    try {
+      const json = localStorage.getItem('options');
+      const options = JSON.parse(json);
+
+      if(options){
+        this.setState(()=>({options}));
+    }   
+    } catch (e){
+      //do nothing
+    }    
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.options.length !== this.state.options.length){
+      const json = JSON.stringify(this.state.options);
+      localStorage.setItem('options', json)
+      
+    }
+  }
+
+  componentWillUnmount(){
+    console.log('ComponentwillUnmount');
+  }
+
+
 //handleDeleteOptions
   handleDeleteOptions(){
     this.setState(()=>( { options:[]  }))
@@ -51,7 +80,6 @@ class IndecisionApp extends Component{
   render(){  
     const subtitle = 'Put your life in the hands of a computer';
 
-
     return (
       <div>
         <Header subtitle={subtitle}/>
@@ -64,6 +92,7 @@ class IndecisionApp extends Component{
           handleDeleteOptions={this.handleDeleteOptions}
           handleDeleteOption = {this.handleDeleteOption}
         />       
+
         <AddOption
           handleAddOption={this.handleAddOption}
        />
@@ -71,6 +100,7 @@ class IndecisionApp extends Component{
     )
   }
 }
+
 
 const Header = (props) =>{
   return ( 
@@ -101,22 +131,19 @@ const Action = (props) =>{
   )
 }
 
-
-
-
 const Options = (props) =>{
   return (
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
-     {props.options.map((option)=>(
-      
+      {props.options.length === 0 && <p>Please add an option to get started!</p>}
+     {props.options.map((option)=>(      
       <Option 
        key={option} 
        optionText={option} 
       handleDeleteOption={props.handleDeleteOption}
      />
-     )      
-     )}   
+     ) )
+    }   
     
     </div>
   )
@@ -152,7 +179,11 @@ class AddOption extends Component{
     const option = e.target.elements.option.value.trim();
     const error = this.props.handleAddOption(option);
     
-    this.setState(()=>({ error  } ))     
+    this.setState(()=>({ error  } ))   
+    
+    if(!error){
+      e.target.elements.option.value = '';
+    }
   }
 
   render(){
@@ -171,6 +202,6 @@ class AddOption extends Component{
 
 const appRoot = document.getElementById('root');
 
-ReactDOM.render(<IndecisionApp />, appRoot);
+ReactDOM.render(<IndecisionApp  />, appRoot);
 
-export default Header;
+// export default Header;
