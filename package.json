@@ -6,17 +6,21 @@
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-loader": "7.1.1",
+    "babel-plugin-transform-class-properties": "6.24.1",
     "live-server": "^1.2.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-modal": "2.2.2",
     "react-scripts": "1.1.4",
-    "validator": "8.0.0"
+    "validator": "8.0.0",
+    "webpack-dev-server": "2.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "serve": "live-server public/",
     "build": "react-scripts build",
     "webpack": "webpack --watch",
+    "dev-server": "webpack-dev-server",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
