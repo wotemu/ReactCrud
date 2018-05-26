@@ -9,6 +9,7 @@
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.23.0",
     "css-loader": "0.28.4",
+    "express": "4.15.4",
     "extract-text-webpack-plugin": "3.0.0",
     "jest": "20.0.4",
     "live-server": "^1.2.0",
@@ -30,13 +31,14 @@
     "validator": "8.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/server.js",
     "serve": "live-server public/",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
     "webpack": "webpack --watch",
     "dev-server": "webpack-dev-server",
     "test": "jest",
+    "heroku-postbuild":"yarn run build:prod",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
